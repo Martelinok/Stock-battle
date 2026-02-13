@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Battle - Mockup Ideas</title>
+    <title>Stock Battle - Design Ideas</title>
     <style>
         * {
             margin: 0;
@@ -13,24 +13,27 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f5f5;
+            background: #fafafa;
             line-height: 1.6;
+            color: #2d3436;
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: white;
+            color: #2d3436;
             text-align: center;
             padding: 2rem;
+            border-bottom: 1px solid #e9ecef;
         }
 
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            font-weight: 300;
         }
 
         .header p {
-            opacity: 0.9;
+            color: #636e72;
             font-size: 1.1rem;
         }
 
@@ -43,40 +46,48 @@
         .tabs {
             display: flex;
             background: white;
-            border-radius: 10px 10px 0 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             overflow: hidden;
             flex-wrap: wrap;
+            border: 1px solid #e9ecef;
+            border-bottom: none;
         }
 
         .tab {
             flex: 1;
+            min-width: 200px;
             padding: 1rem 1.5rem;
-            background: #f8f9fa;
+            background: #fdfdfd;
             border: none;
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            min-width: 200px;
+            transition: all 0.2s ease;
+            border-right: 1px solid #e9ecef;
+            font-size: 0.9rem;
+            color: #636e72;
         }
 
-        .tab:hover {
-            background: #e9ecef;
+        .tab:last-child {
+            border-right: none;
         }
 
         .tab.active {
             background: white;
-            border-bottom-color: #667eea;
-            color: #667eea;
+            color: #00b894;
+            border-bottom: 2px solid #00b894;
+        }
+
+        .tab:hover {
+            background: #f8f9fa;
         }
 
         .tab-content {
             display: none;
             background: white;
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            min-height: 800px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+            border-top: none;
         }
 
         .tab-content.active {
@@ -85,192 +96,288 @@
 
         .mockup-frame {
             padding: 2rem;
-            text-align: center;
         }
 
         .mockup-description {
-            background: #f8f9fa;
-            padding: 1.5rem;
             margin-bottom: 2rem;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .mockup-description h3 {
+            color: #2d3436;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .mockup-description p {
+            color: #636e72;
+            margin-bottom: 0.5rem;
         }
 
         .mockup-preview {
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-            background: white;
-        }
-
-        /* Mockup específicos */
-        .minimal-battle {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 2rem;
-            padding: 2rem;
-            align-items: center;
-        }
-
-        .stock-minimal {
-            text-align: center;
-            padding: 1.5rem;
             background: #f8f9fa;
-            border-radius: 12px;
-            transition: transform 0.3s ease;
+            border-radius: 8px;
+            padding: 2rem;
+            border: 1px solid #e9ecef;
         }
 
-        .stock-minimal:hover {
-            transform: translateY(-5px);
+        /* Minimalist Design */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 50px 1fr;
+            gap: 2rem;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .vs-minimal {
+        .stock-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .stock-symbol {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 0.5rem;
+        }
+
+        .stock-company {
+            color: #636e72;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .stock-price {
             font-size: 2rem;
-            color: #667eea;
-            font-weight: bold;
+            font-weight: 300;
+            color: #2d3436;
+            margin-bottom: 0.5rem;
         }
 
-        .price-big {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 1rem 0;
+        .stock-change.positive {
+            color: #00b894;
         }
 
+        .stock-change.negative {
+            color: #e17055;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f1f3f4;
+            font-size: 0.9rem;
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .vs-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #636e72;
+        }
+
+        /* Gaming Style */
         .gaming-battle {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
             color: white;
+            border-radius: 12px;
             padding: 2rem;
             position: relative;
             overflow: hidden;
         }
 
-        .gaming-battle::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            pointer-events: none;
+        .fighter-container {
+            display: grid;
+            grid-template-columns: 1fr 100px 1fr;
+            gap: 2rem;
+            align-items: center;
         }
 
         .fighter-card {
             background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 15px;
-            padding: 2rem;
-            position: relative;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid transparent;
         }
 
         .fighter-red {
-            border-left: 4px solid #ff4757;
-            box-shadow: 0 0 20px rgba(255, 71, 87, 0.3);
+            border-color: #e17055;
         }
 
         .fighter-blue {
-            border-left: 4px solid #3742fa;
-            box-shadow: 0 0 20px rgba(55, 66, 250, 0.3);
+            border-color: #0984e3;
         }
 
+        .power-bar {
+            background: rgba(255,255,255,0.2);
+            height: 8px;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+        }
+
+        .power-fill {
+            height: 100%;
+            background: #00b894;
+            transition: width 0.3s ease;
+        }
+
+        /* Professional Dashboard */
         .professional-dashboard {
-            background: #fafafa;
+            background: white;
+            border-radius: 8px;
             padding: 2rem;
         }
 
         .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
+            border-bottom: 1px solid #e9ecef;
             padding-bottom: 1rem;
-            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 2rem;
         }
 
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
         }
 
         .metric-card {
-            background: white;
+            background: #f8f9fa;
+            border-radius: 6px;
             padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-left: 4px solid #667eea;
+            border: 1px solid #e9ecef;
         }
 
-        .mobile-first {
+        .metric-card h4 {
+            color: #00b894;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Mobile First */
+        .mobile-container {
             max-width: 375px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 8px solid #2d3436;
         }
 
         .mobile-header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: #00b894;
             color: white;
-            padding: 1.5rem;
+            padding: 1rem;
             text-align: center;
-        }
-
-        .mobile-battle {
-            padding: 1.5rem;
-        }
-
-        .mobile-vs {
-            display: flex;
-            align-items: center;
-            margin: 1rem 0;
         }
 
         .mobile-stock {
-            flex: 1;
-            text-align: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e9ecef;
         }
 
-        .vs-icon {
-            margin: 0 1rem;
-            font-size: 1.5rem;
-            color: #667eea;
+        .mobile-stock:last-child {
+            border-bottom: none;
+        }
+
+        /* Chart Focus */
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(to right, #00b894, #74b9ff);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 500;
         }
 
         .features-list {
+            margin-top: 2rem;
+            padding: 1rem;
             background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1rem;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
         }
 
         .features-list h4 {
-            color: #667eea;
+            color: #2d3436;
             margin-bottom: 1rem;
+            font-size: 1rem;
         }
 
         .features-list ul {
             list-style: none;
+            padding-left: 0;
         }
 
         .features-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #e9ecef;
+            color: #636e72;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
         }
 
-        .features-list li:last-child {
-            border-bottom: none;
-        }
-
-        .features-list li::before {
-            content: "✓";
-            color: #28a745;
+        .features-list li:before {
+            content: "✓ ";
+            color: #00b894;
             font-weight: bold;
             margin-right: 0.5rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #00b894;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #636e72;
+            border: 1px solid #e9ecef;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
         @media (max-width: 768px) {
@@ -278,143 +385,198 @@
                 flex-direction: column;
             }
             
-            .minimal-battle {
-                grid-template-columns: 1fr;
-                gap: 1rem;
+            .tab {
+                min-width: auto;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
             }
             
-            .vs-minimal {
-                order: -1;
+            .tab:last-child {
+                border-bottom: none;
+            }
+            
+            .comparison-grid,
+            .fighter-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .vs-indicator {
+                margin: 1rem 0;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <a href="index.html" style="position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">← Volver al Menú</a>
-        <h1>🥊 Stock Battle - Design Ideas</h1>
-        <p>Diferentes estilos y enfoques para el concepto de comparación de acciones</p>
+        <h1>🎨 Stock Battle Design Variations</h1>
+        <p>5 different approaches to visual stock comparison</p>
     </div>
 
     <div class="tabs-container">
         <div class="tabs">
-            <button class="tab active" onclick="showTab('minimal')">Minimalista</button>
-            <button class="tab" onclick="showTab('gaming')">Gaming Style</button>
-            <button class="tab" onclick="showTab('professional')">Pro Dashboard</button>
-            <button class="tab" onclick="showTab('mobile')">Mobile First</button>
-            <button class="tab" onclick="showTab('charts')">Chart Focus</button>
+            <button class="tab active" onclick="openTab(event, 'minimalist')">🎯 Minimalist</button>
+            <button class="tab" onclick="openTab(event, 'gaming')">🎮 Gaming</button>
+            <button class="tab" onclick="openTab(event, 'professional')">📊 Professional</button>
+            <button class="tab" onclick="openTab(event, 'mobile')">📱 Mobile First</button>
+            <button class="tab" onclick="openTab(event, 'chart')">📈 Chart Focus</button>
         </div>
 
-        <!-- Tab 1: Minimalista -->
-        <div id="minimal" class="tab-content active">
+        <!-- Tab 1: Minimalist -->
+        <div id="minimalist" class="tab-content active">
             <div class="mockup-frame">
                 <div class="mockup-description">
-                    <h3>🎯 Enfoque Minimalista</h3>
-                    <p><strong>Concepto:</strong> Diseño limpio y directo al grano. Solo la información esencial para tomar decisiones rápidas.</p>
+                    <h3>🎯 Minimalist Design</h3>
+                    <p><strong>Concept:</strong> Clean and simple interface focused on essential data.</p>
+                    <p><strong>Target audience:</strong> Users who prefer clarity and simplicity without distractions.</p>
                 </div>
                 
                 <div class="mockup-preview">
-                    <div class="minimal-battle">
-                        <div class="stock-minimal">
-                            <h2>🍎 AAPL</h2>
-                            <div class="price-big">$174.50</div>
-                            <div style="color: #28a745; font-weight: bold;">+2.1%</div>
-                            <div style="margin: 1rem 0; font-size: 0.9em; color: #666;">
-                                P/E: 28.5 | Vol: 45M
+                    <div class="comparison-grid">
+                        <div class="stock-card">
+                            <div class="stock-symbol">AAPL</div>
+                            <div class="stock-company">Apple Inc.</div>
+                            <div class="stock-price">$174.50</div>
+                            <div class="stock-change positive">+$3.58 (+2.1%)</div>
+                            
+                            <div style="margin-top: 1.5rem;">
+                                <div class="metric-row">
+                                    <span>Market Cap</span>
+                                    <strong>$2.8T</strong>
+                                </div>
+                                <div class="metric-row">
+                                    <span>P/E Ratio</span>
+                                    <strong>28.5</strong>
+                                </div>
+                                <div class="metric-row">
+                                    <span>Volume</span>
+                                    <strong>45.2M</strong>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="vs-minimal">VS</div>
+                        <div class="vs-indicator">
+                            <span>⚡</span>
+                        </div>
                         
-                        <div class="stock-minimal">
-                            <h2>⚡ TSLA</h2>
-                            <div class="price-big">$248.87</div>
-                            <div style="color: #dc3545; font-weight: bold;">-1.2%</div>
-                            <div style="margin: 1rem 0; font-size: 0.9em; color: #666;">
-                                P/E: 76.3 | Vol: 89M
+                        <div class="stock-card">
+                            <div class="stock-symbol">TSLA</div>
+                            <div class="stock-company">Tesla Inc.</div>
+                            <div class="stock-price">$248.87</div>
+                            <div class="stock-change negative">-$2.95 (-1.2%)</div>
+                            
+                            <div style="margin-top: 1.5rem;">
+                                <div class="metric-row">
+                                    <span>Market Cap</span>
+                                    <strong>$794.2B</strong>
+                                </div>
+                                <div class="metric-row">
+                                    <span>P/E Ratio</span>
+                                    <strong>76.3</strong>
+                                </div>
+                                <div class="metric-row">
+                                    <span>Volume</span>
+                                    <strong>28.1M</strong>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div style="padding: 2rem; background: #f8f9fa; text-align: center;">
-                        <h4 style="color: #667eea; margin-bottom: 1rem;">🏆 Recomendación: AAPL</h4>
-                        <button style="padding: 0.8rem 2rem; background: #667eea; color: white; border: none; border-radius: 25px; font-weight: bold; cursor: pointer;">Comprar AAPL</button>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary">Compare Details</button>
+                        <button class="btn btn-secondary">Add to Watchlist</button>
                     </div>
                 </div>
 
                 <div class="features-list">
-                    <h4>Características del diseño:</h4>
+                    <h4>Design Features:</h4>
                     <ul>
-                        <li>Información condensada y clara</li>
-                        <li>Comparación directa sin distracciones</li>
-                        <li>Carga rápida y fácil de entender</li>
-                        <li>Perfecto para decisiones rápidas</li>
+                        <li>Maximum clarity and readability</li>
+                        <li>Focus on essential metrics only</li>
+                        <li>Neutral color palette</li>
+                        <li>Professional and timeless appearance</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Tab 2: Gaming Style -->
+        <!-- Tab 2: Gaming -->
         <div id="gaming" class="tab-content">
             <div class="mockup-frame">
                 <div class="mockup-description">
-                    <h3>🎮 Gaming Battle Style</h3>
-                    <p><strong>Concepto:</strong> Inspirado en videojuegos de lucha. Hace la comparación más emocionante y engaging.</p>
+                    <h3>🎮 Gaming Style</h3>
+                    <p><strong>Concept:</strong> Gamified interface with battle elements to make investing more engaging.</p>
+                    <p><strong>Target audience:</strong> Younger investors and users who enjoy interactive experiences.</p>
                 </div>
                 
                 <div class="mockup-preview">
                     <div class="gaming-battle">
                         <div style="text-align: center; margin-bottom: 2rem;">
-                            <h1 style="color: #ff4757; text-shadow: 0 0 10px rgba(255,71,87,0.5);">⚔️ STOCK KOMBAT ⚔️</h1>
-                            <p style="color: #ccc;">Choose your fighter!</p>
+                            <h2 style="color: #ffd700;">⚔️ STOCK BATTLE ARENA</h2>
+                            <p>Choose your fighter!</p>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center;">
+                        <div class="fighter-container">
                             <div class="fighter-card fighter-red">
                                 <div style="text-align: center;">
-                                    <h2 style="color: #ff4757;">🍎 APPLE</h2>
+                                    <h2 style="color: #e17055;">🍎 APPLE</h2>
                                     <div style="font-size: 2rem; margin: 1rem 0;">$174.50</div>
-                                    <div style="color: #2ed573;">▲ +2.1%</div>
+                                    <div style="color: #00b894;">▲ +2.1%</div>
                                     
                                     <div style="margin-top: 1.5rem;">
-                                        <div style="background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 5px; margin: 0.5rem 0;">
+                                        <div style="margin: 0.5rem 0;">
                                             <div style="display: flex; justify-content: space-between;">
                                                 <span>Power</span>
-                                                <span style="color: #ff4757;">█████████░</span>
+                                                <span>85%</span>
+                                            </div>
+                                            <div class="power-bar">
+                                                <div class="power-fill" style="width: 85%;"></div>
                                             </div>
                                         </div>
-                                        <div style="background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 5px; margin: 0.5rem 0;">
+                                        <div style="margin: 0.5rem 0;">
                                             <div style="display: flex; justify-content: space-between;">
                                                 <span>Defense</span>
-                                                <span style="color: #ff4757;">████████░░</span>
+                                                <span>90%</span>
+                                            </div>
+                                            <div class="power-bar">
+                                                <div class="power-fill" style="width: 90%;"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div style="text-align: center; color: #ffd700; font-size: 3rem;">
-                                ⚔️<br>
-                                <div style="font-size: 1rem; margin-top: 1rem;">FIGHT!</div>
+                            <div class="vs-indicator" style="font-size: 3rem; color: #ffd700;">
+                                ⚔️
                             </div>
                             
                             <div class="fighter-card fighter-blue">
                                 <div style="text-align: center;">
-                                    <h2 style="color: #3742fa;">⚡ TESLA</h2>
+                                    <h2 style="color: #0984e3;">⚡ TESLA</h2>
                                     <div style="font-size: 2rem; margin: 1rem 0;">$248.87</div>
-                                    <div style="color: #ff4757;">▼ -1.2%</div>
+                                    <div style="color: #e17055;">▼ -1.2%</div>
                                     
                                     <div style="margin-top: 1.5rem;">
-                                        <div style="background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 5px; margin: 0.5rem 0;">
+                                        <div style="margin: 0.5rem 0;">
                                             <div style="display: flex; justify-content: space-between;">
                                                 <span>Power</span>
-                                                <span style="color: #3742fa;">███████░░░</span>
+                                                <span>70%</span>
+                                            </div>
+                                            <div class="power-bar">
+                                                <div class="power-fill" style="width: 70%;"></div>
                                             </div>
                                         </div>
-                                        <div style="background: rgba(255,255,255,0.1); padding: 0.5rem; border-radius: 5px; margin: 0.5rem 0;">
+                                        <div style="margin: 0.5rem 0;">
                                             <div style="display: flex; justify-content: space-between;">
                                                 <span>Defense</span>
-                                                <span style="color: #3742fa;">█████░░░░░</span>
+                                                <span>50%</span>
+                                            </div>
+                                            <div class="power-bar">
+                                                <div class="power-fill" style="width: 50%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -424,53 +586,54 @@
                         
                         <div style="text-align: center; margin-top: 2rem;">
                             <div style="color: #ffd700; font-size: 1.5rem; margin-bottom: 1rem;">🏆 APPLE WINS!</div>
-                            <button style="padding: 1rem 2rem; background: linear-gradient(45deg, #ff4757, #ff6b7a); color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(255,71,87,0.3);">BUY THE WINNER!</button>
+                            <button class="btn btn-primary" style="background: #e17055; padding: 1rem 2rem;">BUY THE WINNER!</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="features-list">
-                    <h4>Características del diseño:</h4>
+                    <h4>Design Features:</h4>
                     <ul>
-                        <li>Interfaz tipo videojuego para mayor engagement</li>
-                        <li>Barras de poder y estadísticas visuales</li>
-                        <li>Efectos y animaciones llamativas</li>
-                        <li>Gamificación del proceso de inversión</li>
+                        <li>Video game interface for higher engagement</li>
+                        <li>Power bars and visual statistics</li>
+                        <li>Eye-catching effects and animations</li>
+                        <li>Gamification of the investment process</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Tab 3: Professional Dashboard -->
+        <!-- Tab 3: Professional -->
         <div id="professional" class="tab-content">
             <div class="mockup-frame">
                 <div class="mockup-description">
                     <h3>📊 Professional Dashboard</h3>
-                    <p><strong>Concepto:</strong> Enfoque serio y profesional para traders e inversores experimentados.</p>
+                    <p><strong>Concept:</strong> Serious and professional approach for experienced traders and investors.</p>
+                    <p><strong>Target audience:</strong> Financial professionals and institutional investors.</p>
                 </div>
                 
                 <div class="mockup-preview">
                     <div class="professional-dashboard">
                         <div class="dashboard-header">
-                            <h2 style="color: #333;">Stock Comparison Analysis</h2>
-                            <div style="color: #666; font-size: 0.9rem;">Last updated: 13 Feb 2026, 05:42 UTC</div>
+                            <h2 style="color: #2d3436;">Stock Comparison Analysis</h2>
+                            <div style="color: #636e72; font-size: 0.9rem;">Last updated: 13 Feb 2026, 05:42 UTC</div>
                         </div>
                         
                         <div class="metrics-grid">
                             <div class="metric-card">
-                                <h4 style="color: #667eea;">Price Performance</h4>
+                                <h4>Price Performance</h4>
                                 <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;">
                                     <span>AAPL</span>
-                                    <strong style="color: #28a745;">$174.50 (+2.1%)</strong>
+                                    <strong style="color: #00b894;">$174.50 (+2.1%)</strong>
                                 </div>
                                 <div style="display: flex; justify-content: space-between;">
                                     <span>TSLA</span>
-                                    <strong style="color: #dc3545;">$248.87 (-1.2%)</strong>
+                                    <strong style="color: #e17055;">$248.87 (-1.2%)</strong>
                                 </div>
                             </div>
                             
                             <div class="metric-card">
-                                <h4 style="color: #667eea;">Valuation</h4>
+                                <h4>Valuation</h4>
                                 <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;">
                                     <span>AAPL P/E</span>
                                     <strong>28.5</strong>
@@ -482,7 +645,7 @@
                             </div>
                             
                             <div class="metric-card">
-                                <h4 style="color: #667eea;">Market Cap</h4>
+                                <h4>Market Cap</h4>
                                 <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;">
                                     <span>AAPL</span>
                                     <strong>$2.8T</strong>
@@ -494,41 +657,27 @@
                             </div>
                             
                             <div class="metric-card">
-                                <h4 style="color: #667eea;">Risk Score</h4>
+                                <h4>Risk Score</h4>
                                 <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;">
                                     <span>AAPL</span>
-                                    <strong style="color: #28a745;">Low (7.2)</strong>
+                                    <strong style="color: #00b894;">Low (3.2)</strong>
                                 </div>
                                 <div style="display: flex; justify-content: space-between;">
                                     <span>TSLA</span>
-                                    <strong style="color: #ffc107;">High (8.9)</strong>
+                                    <strong style="color: #e17055;">High (7.8)</strong>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                            <h4 style="color: #333; margin-bottom: 1rem;">Investment Recommendation</h4>
-                            <div style="background: #d4edda; color: #155724; padding: 1rem; border-radius: 5px; border-left: 4px solid #28a745;">
-                                <strong>Recommendation: BUY AAPL</strong><br>
-                                Apple shows better fundamentals with lower P/E ratio and more stable performance. Tesla has higher growth potential but carries significantly more risk.
-                            </div>
-                            
-                            <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
-                                <button style="padding: 0.8rem 1.5rem; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Execute Trade</button>
-                                <button style="padding: 0.8rem 1.5rem; background: white; color: #667eea; border: 2px solid #667eea; border-radius: 5px; cursor: pointer;">Add to Watchlist</button>
-                                <button style="padding: 0.8rem 1.5rem; background: #f8f9fa; color: #666; border: 1px solid #ddd; border-radius: 5px; cursor: pointer;">Export Analysis</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="features-list">
-                    <h4>Características del diseño:</h4>
+                    <h4>Design Features:</h4>
                     <ul>
-                        <li>Métricas detalladas y análisis profundo</li>
-                        <li>Diseño limpio y profesional</li>
-                        <li>Recomendaciones basadas en datos</li>
-                        <li>Acciones claras para ejecutar</li>
+                        <li>Comprehensive financial metrics</li>
+                        <li>Data-dense but organized layout</li>
+                        <li>Professional color scheme</li>
+                        <li>Advanced analytical tools integration</li>
                     </ul>
                 </div>
             </div>
@@ -539,165 +688,102 @@
             <div class="mockup-frame">
                 <div class="mockup-description">
                     <h3>📱 Mobile First Design</h3>
-                    <p><strong>Concepto:</strong> Optimizado para móvil. Perfecto para decisiones rápidas on-the-go.</p>
+                    <p><strong>Concept:</strong> Optimized for mobile devices with touch-friendly interfaces.</p>
+                    <p><strong>Target audience:</strong> Mobile-first users who trade on the go.</p>
                 </div>
                 
                 <div class="mockup-preview">
-                    <div class="mobile-first">
+                    <div class="mobile-container">
                         <div class="mobile-header">
                             <h2>Stock Battle</h2>
                             <p style="opacity: 0.9;">Quick Compare</p>
                         </div>
                         
-                        <div class="mobile-battle">
-                            <div class="mobile-vs">
-                                <div class="mobile-stock">
-                                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🍎</div>
-                                    <div style="font-weight: bold;">AAPL</div>
-                                    <div style="font-size: 1.3rem; font-weight: bold; margin: 0.5rem 0;">$174.50</div>
-                                    <div style="color: #28a745; font-size: 0.9rem;">+2.1%</div>
+                        <div class="mobile-stock">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: bold; font-size: 1.1rem;">AAPL</div>
+                                    <div style="color: #636e72; font-size: 0.9rem;">Apple Inc.</div>
                                 </div>
-                                
-                                <div class="vs-icon">⚔️</div>
-                                
-                                <div class="mobile-stock">
-                                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">⚡</div>
-                                    <div style="font-weight: bold;">TSLA</div>
-                                    <div style="font-size: 1.3rem; font-weight: bold; margin: 0.5rem 0;">$248.87</div>
-                                    <div style="color: #dc3545; font-size: 0.9rem;">-1.2%</div>
+                                <div style="text-align: right;">
+                                    <div style="font-weight: bold; font-size: 1.1rem;">$174.50</div>
+                                    <div style="color: #00b894; font-size: 0.9rem;">+2.1%</div>
                                 </div>
                             </div>
-                            
-                            <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
-                                <h4 style="color: #667eea; text-align: center; margin-bottom: 1rem;">Quick Stats</h4>
-                                <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;">
-                                    <span style="font-size: 0.9rem;">P/E Ratio</span>
-                                    <span style="font-size: 0.9rem;"><strong>28.5</strong> vs <strong>76.3</strong></span>
+                        </div>
+                        
+                        <div class="mobile-stock">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: bold; font-size: 1.1rem;">TSLA</div>
+                                    <div style="color: #636e72; font-size: 0.9rem;">Tesla Inc.</div>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;">
-                                    <span style="font-size: 0.9rem;">Volume</span>
-                                    <span style="font-size: 0.9rem;"><strong>45M</strong> vs <strong>89M</strong></span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; margin: 0.5rem 0;">
-                                    <span style="font-size: 0.9rem;">Market Cap</span>
-                                    <span style="font-size: 0.9rem;"><strong>2.8T</strong> vs <strong>794B</strong></span>
+                                <div style="text-align: right;">
+                                    <div style="font-weight: bold; font-size: 1.1rem;">$248.87</div>
+                                    <div style="color: #e17055; font-size: 0.9rem;">-1.2%</div>
                                 </div>
                             </div>
-                            
-                            <div style="text-align: center; padding: 1rem; background: #e7f3ff; border-radius: 8px; margin: 1rem 0;">
-                                <div style="color: #667eea; font-weight: bold; margin-bottom: 0.5rem;">🏆 Winner: AAPL</div>
-                                <div style="font-size: 0.9rem; color: #666;">Better fundamentals</div>
-                            </div>
-                            
-                            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-                                <button style="flex: 1; padding: 1rem; background: #667eea; color: white; border: none; border-radius: 8px; font-weight: bold;">Buy AAPL</button>
-                                <button style="flex: 1; padding: 1rem; background: white; color: #667eea; border: 2px solid #667eea; border-radius: 8px; font-weight: bold;">Buy TSLA</button>
-                            </div>
-                            
-                            <button style="width: 100%; padding: 0.8rem; background: #f8f9fa; color: #666; border: 1px solid #ddd; border-radius: 8px; margin-top: 0.5rem;">New Comparison</button>
+                        </div>
+                        
+                        <div style="padding: 1rem;">
+                            <button class="btn btn-primary" style="width: 100%; margin-bottom: 0.5rem;">Compare Details</button>
+                            <button class="btn btn-secondary" style="width: 100%;">Add to Watchlist</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="features-list">
-                    <h4>Características del diseño:</h4>
+                    <h4>Design Features:</h4>
                     <ul>
-                        <li>Optimizado para pantallas pequeñas</li>
-                        <li>Navegación con pulgar</li>
-                        <li>Información condensada pero clara</li>
-                        <li>Botones grandes y fáciles de presionar</li>
+                        <li>Optimized for touch interactions</li>
+                        <li>Vertical layout for mobile screens</li>
+                        <li>Large buttons and readable text</li>
+                        <li>Swipe gestures support</li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <!-- Tab 5: Chart Focus -->
-        <div id="charts" class="tab-content">
+        <div id="chart" class="tab-content">
             <div class="mockup-frame">
                 <div class="mockup-description">
-                    <h3>📈 Chart-Focused Analysis</h3>
-                    <p><strong>Concepto:</strong> Énfasis en visualización de datos y análisis técnico.</p>
+                    <h3>📈 Chart Focus Design</h3>
+                    <p><strong>Concept:</strong> Visual-heavy interface centered on charts and technical analysis.</p>
+                    <p><strong>Target audience:</strong> Technical analysts and chart-focused traders.</p>
                 </div>
                 
                 <div class="mockup-preview">
-                    <div style="padding: 2rem; background: white;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 1rem;">
-                            <h2 style="color: #333;">Technical Analysis Battle</h2>
-                            <div style="display: flex; gap: 1rem;">
-                                <button style="padding: 0.5rem 1rem; background: #ff4757; color: white; border: none; border-radius: 5px; font-size: 0.9rem;">AAPL</button>
-                                <button style="padding: 0.5rem 1rem; background: #3742fa; color: white; border: none; border-radius: 5px; font-size: 0.9rem;">TSLA</button>
-                            </div>
+                    <div class="chart-container">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                            <h3 style="color: #2d3436;">AAPL vs TSLA</h3>
+                            <div style="color: #636e72;">6 Month Performance</div>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
-                            <div style="border: 2px solid #ff4757; border-radius: 8px; padding: 1.5rem;">
-                                <h3 style="color: #ff4757; margin-bottom: 1rem;">🍎 AAPL - $174.50</h3>
-                                <div style="background: #f8f9fa; height: 200px; border-radius: 5px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; position: relative;">
-                                    <div style="color: #999; font-size: 2rem;">📈</div>
-                                    <div style="position: absolute; bottom: 10px; right: 10px; background: #28a745; color: white; padding: 0.3rem 0.8rem; border-radius: 3px; font-size: 0.8rem;">+2.1%</div>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
-                                    <span>RSI: <strong style="color: #28a745;">65</strong></span>
-                                    <span>MACD: <strong style="color: #28a745;">Bullish</strong></span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-top: 0.5rem;">
-                                    <span>Support: <strong>$170</strong></span>
-                                    <span>Resistance: <strong>$180</strong></span>
-                                </div>
-                            </div>
-                            
-                            <div style="border: 2px solid #3742fa; border-radius: 8px; padding: 1.5rem;">
-                                <h3 style="color: #3742fa; margin-bottom: 1rem;">⚡ TSLA - $248.87</h3>
-                                <div style="background: #f8f9fa; height: 200px; border-radius: 5px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; position: relative;">
-                                    <div style="color: #999; font-size: 2rem;">📉</div>
-                                    <div style="position: absolute; bottom: 10px; right: 10px; background: #dc3545; color: white; padding: 0.3rem 0.8rem; border-radius: 3px; font-size: 0.8rem;">-1.2%</div>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
-                                    <span>RSI: <strong style="color: #ffc107;">45</strong></span>
-                                    <span>MACD: <strong style="color: #dc3545;">Bearish</strong></span>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-top: 0.5rem;">
-                                    <span>Support: <strong>$240</strong></span>
-                                    <span>Resistance: <strong>$260</strong></span>
-                                </div>
-                            </div>
+                        <div class="chart-placeholder">
+                            📈 Interactive Chart Area
                         </div>
                         
-                        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
-                            <h4 style="color: #333; margin-bottom: 1rem;">Technical Analysis Summary</h4>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; text-align: center;">
-                                <div style="background: white; padding: 1rem; border-radius: 5px;">
-                                    <div style="color: #28a745; font-weight: bold;">AAPL Signal</div>
-                                    <div style="font-size: 2rem; color: #28a745;">📈</div>
-                                    <div style="font-size: 0.9rem;">Strong Buy</div>
-                                </div>
-                                <div style="background: white; padding: 1rem; border-radius: 5px;">
-                                    <div style="color: #333; font-weight: bold;">Confidence</div>
-                                    <div style="font-size: 2rem;">🎯</div>
-                                    <div style="font-size: 0.9rem;">85%</div>
-                                </div>
-                                <div style="background: white; padding: 1rem; border-radius: 5px;">
-                                    <div style="color: #dc3545; font-weight: bold;">TSLA Signal</div>
-                                    <div style="font-size: 2rem; color: #dc3545;">📉</div>
-                                    <div style="font-size: 0.9rem;">Hold/Sell</div>
-                                </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                            <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 6px;">
+                                <div style="font-size: 1.2rem; font-weight: bold; color: #00b894;">AAPL +12.5%</div>
+                                <div style="color: #636e72; font-size: 0.9rem;">6M Performance</div>
                             </div>
-                        </div>
-                        
-                        <div style="text-align: center; margin-top: 2rem;">
-                            <button style="padding: 1rem 2rem; background: #28a745; color: white; border: none; border-radius: 8px; font-weight: bold; margin-right: 1rem;">Execute Buy Order</button>
-                            <button style="padding: 1rem 2rem; background: white; color: #667eea; border: 2px solid #667eea; border-radius: 8px; font-weight: bold;">Set Price Alert</button>
+                            <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 6px;">
+                                <div style="font-size: 1.2rem; font-weight: bold; color: #e17055;">TSLA -8.3%</div>
+                                <div style="color: #636e72; font-size: 0.9rem;">6M Performance</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="features-list">
-                    <h4>Características del diseño:</h4>
+                    <h4>Design Features:</h4>
                     <ul>
-                        <li>Énfasis en análisis técnico</li>
-                        <li>Indicadores visuales claros</li>
-                        <li>Señales de compra/venta</li>
-                        <li>Confianza en las recomendaciones</li>
+                        <li>Large interactive charts</li>
+                        <li>Technical indicators integration</li>
+                        <li>Visual trend analysis</li>
+                        <li>Real-time chart updates</li>
                     </ul>
                 </div>
             </div>
@@ -705,42 +791,22 @@
     </div>
 
     <script>
-        function showTab(tabName) {
-            // Hide all tab contents
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => {
-                content.classList.remove('active');
-            });
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabs;
             
-            // Remove active class from all tabs
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
-            });
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
             
-            // Show selected tab content
-            document.getElementById(tabName).classList.add('active');
+            tabs = document.getElementsByClassName("tab");
+            for (i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
             
-            // Add active class to clicked tab
-            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
         }
-        
-        // Add some interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add hover effects to mockup elements
-            const interactiveElements = document.querySelectorAll('.stock-minimal, .fighter-card, .metric-card, .mobile-stock');
-            
-            interactiveElements.forEach(element => {
-                element.addEventListener('mouseenter', function() {
-                    this.style.transform = 'scale(1.02)';
-                    this.style.transition = 'transform 0.2s ease';
-                });
-                
-                element.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
-                });
-            });
-        });
     </script>
 </body>
 </html>
