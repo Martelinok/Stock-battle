@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥊 Stock Battle - Bloom Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafafa;
+            min-height: 100vh;
+            color: #2d3436;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #2d3436;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #636e72;
+            font-weight: 300;
+        }
+
+        .project-nav {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .nav-card {
+            background: #fdfdfd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid #e9ecef;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #00b894;
+        }
+
+        .nav-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .nav-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2d3436;
+        }
+
+        .nav-desc {
+            color: #636e72;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #00b894;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .coming-soon {
+            background: #fdcb6e;
+            color: #2d3436;
+        }
+
+        .project-info {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid #e9ecef;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .info-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2d3436;
+        }
+
+        .info-label {
+            color: #636e72;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .roadmap-item {
+            margin: 1rem 0; 
+            display: flex; 
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+
+        .roadmap-icon {
+            margin-right: 1rem; 
+            font-size: 1.2rem;
+        }
+
+        .completed { color: #00b894; }
+        .in-progress { color: #fdcb6e; }
+        .pending { color: #b2bec3; }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #636e72;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🥊 Stock Battle</h1>
+            <p>Visual Stock Comparison for Smart Investment Decisions</p>
+        </div>
+
+        <div class="project-info">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-value">💡</div>
+                    <div class="info-label">Innovative Concept</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-value">5</div>
+                    <div class="info-label">Different Designs</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-value">📱</div>
+                    <div class="info-label">Mobile Ready</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-value">🚀</div>
+                    <div class="info-label">For Bloom</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-nav">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.6rem; color: #2d3436; font-weight: 400;">🗂️ Explore Design Ideas</h2>
+            
+            <div class="nav-grid">
+                <a href="original-mockup-en.html" class="nav-card">
+                    <div class="status-badge">Live</div>
+                    <div class="nav-icon">🎯</div>
+                    <div class="nav-title">Original Mockup</div>
+                    <div class="nav-desc">Complete initial design with Apple vs Tesla. Battle-style layout with detailed metrics and scoring system.</div>
+                </a>
+
+                <a href="mockups-en.html" class="nav-card">
+                    <div class="status-badge">Live</div>
+                    <div class="nav-icon">🎨</div>
+                    <div class="nav-title">5 Different Styles</div>
+                    <div class="nav-desc">Minimalist, Gaming, Professional, Mobile-First and Chart-Focus. Explore all concept variations.</div>
+                </a>
+
+                <div class="nav-card" onclick="comingSoon()">
+                    <div class="status-badge coming-soon">Soon</div>
+                    <div class="nav-icon">📊</div>
+                    <div class="nav-title">Real-Time Data</div>
+                    <div class="nav-desc">Integration with financial APIs for live prices and updated metrics. Alpha Vantage + Yahoo Finance.</div>
+                </div>
+
+                <div class="nav-card" onclick="comingSoon()">
+                    <div class="status-badge coming-soon">Soon</div>
+                    <div class="nav-icon">🎮</div>
+                    <div class="nav-title">Interactive + Animated</div>
+                    <div class="nav-desc">Version with animations, battle effects and smooth transitions. Complete gamified experience.</div>
+                </div>
+
+                <div class="nav-card" onclick="comingSoon()">
+                    <div class="status-badge coming-soon">Soon</div>
+                    <div class="nav-icon">⚙️</div>
+                    <div class="nav-title">Battle Configurator</div>
+                    <div class="nav-desc">Tool to customize comparison criteria, metric weights and analysis types.</div>
+                </div>
+
+                <div class="nav-card" onclick="comingSoon()">
+                    <div class="status-badge coming-soon">Soon</div>
+                    <div class="nav-icon">🔗</div>
+                    <div class="nav-title">Bloom Integration</div>
+                    <div class="nav-desc">Final implementation within Bloom ecosystem. Connected to portfolios and order executor.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-info">
+            <h3 style="text-align: center; margin-bottom: 1.5rem; color: #2d3436; font-weight: 400;">📋 Project Roadmap</h3>
+            <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <div class="roadmap-item">
+                    <span class="roadmap-icon completed">✅</span>
+                    <span>Conceptualization and static mockups</span>
+                </div>
+                <div class="roadmap-item">
+                    <span class="roadmap-icon in-progress">🔄</span>
+                    <span>Final design selection</span>
+                </div>
+                <div class="roadmap-item">
+                    <span class="roadmap-icon pending">⏳</span>
+                    <span>Financial data APIs integration</span>
+                </div>
+                <div class="roadmap-item">
+                    <span class="roadmap-icon pending">⏳</span>
+                    <span>Interactive functionality development</span>
+                </div>
+                <div class="roadmap-item">
+                    <span class="roadmap-icon pending">⏳</span>
+                    <span>Bloom implementation</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🚀 Stock Battle Project for Bloom - Kevin Martello</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Generated with ⚡ Jarvis AI Assistant</p>
+        </div>
+    </div>
+
+    <script>
+        function comingSoon() {
+            alert('🚧 This feature will be available soon!\n\nFor now you can explore the available mockups.');
+        }
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add parallax effect to header
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const header = document.querySelector('.header');
+                if (header) {
+                    header.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            });
+
+            // Add entrance animations
+            const cards = document.querySelectorAll('.nav-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 150 * index);
+            });
+        });
+    </script>
+</body>
+</html>
