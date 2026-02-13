@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🥊 Stock Battle - Bloom</title>
+    <title>🥊 Stock Battle - Bloom Project</title>
     <style>
         * {
             margin: 0;
@@ -15,437 +15,299 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            color: white;
         }
 
-        .battle-container {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
+            padding: 2rem;
         }
 
         .header {
-            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
-            color: white;
             text-align: center;
-            padding: 30px;
-            font-size: 2.5em;
-            font-weight: bold;
+            margin-bottom: 3rem;
         }
 
-        .battle-arena {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 30px;
-            padding: 40px;
-            align-items: start;
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        .stock-card {
-            background: #f8f9fa;
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .project-nav {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 25px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .nav-card {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-decoration: none;
+            color: white;
             position: relative;
-            transition: transform 0.3s ease;
+            overflow: hidden;
         }
 
-        .stock-card:hover {
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .nav-card:hover::before {
+            left: 100%;
+        }
+
+        .nav-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.25);
         }
 
-        .stock-red {
-            border-left: 5px solid #ff4757;
+        .nav-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
         }
 
-        .stock-blue {
-            border-left: 5px solid #3742fa;
+        .nav-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
         }
 
-        .stock-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+        .nav-desc {
+            opacity: 0.9;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
 
-        .stock-symbol {
-            font-size: 2em;
+        .status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #28a745;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
             font-weight: bold;
         }
 
-        .stock-price {
-            text-align: right;
-        }
-
-        .price {
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        .change-positive {
-            color: #2ed573;
-        }
-
-        .change-negative {
-            color: #ff4757;
-        }
-
-        .vs-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-size: 3em;
-            color: #666;
-            min-height: 200px;
-        }
-
-        .metric-section {
-            margin: 20px 0;
-        }
-
-        .metric-title {
-            font-weight: bold;
-            margin-bottom: 15px;
-            font-size: 1.1em;
+        .coming-soon {
+            background: #ffc107;
             color: #333;
         }
 
-        .metric-row {
-            display: flex;
-            justify-content: space-between;
-            margin: 8px 0;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #eee;
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 5px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            transition: width 0.5s ease;
-        }
-
-        .progress-positive {
-            background: linear-gradient(90deg, #2ed573, #1dd1a1);
-        }
-
-        .progress-negative {
-            background: linear-gradient(90deg, #ff4757, #ff3838);
-        }
-
-        .news-item {
-            background: white;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 8px;
-            font-size: 0.9em;
-            border-left: 3px solid #ddd;
-        }
-
-        .score-section {
-            text-align: center;
-            margin: 40px 0;
-            padding: 30px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
+        .project-info {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
             border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 2rem;
         }
 
-        .score-bars {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
         }
 
-        .score-bar {
+        .info-item {
             text-align: center;
-            flex: 1;
-            margin: 0 20px;
         }
 
-        .score-fill {
-            width: 100%;
-            height: 30px;
-            border-radius: 15px;
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .info-value {
+            font-size: 1.5rem;
             font-weight: bold;
+            margin-bottom: 0.5rem;
         }
 
-        .actions {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
+        .info-label {
+            opacity: 0.8;
+            font-size: 0.9rem;
         }
 
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1em;
-        }
-
-        .btn-buy-red {
-            background: #ff4757;
-            color: white;
-        }
-
-        .btn-buy-blue {
-            background: #3742fa;
-            color: white;
-        }
-
-        .btn-secondary {
-            background: #f1f2f6;
-            color: #666;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            opacity: 0.8;
         }
 
         @media (max-width: 768px) {
-            .battle-arena {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .vs-section {
-                order: -1;
-                min-height: auto;
-                font-size: 2em;
-                padding: 20px;
-            }
-            
-            .actions {
-                flex-wrap: wrap;
             }
         }
     </style>
 </head>
 <body>
-    <div class="battle-container">
+    <div class="container">
         <div class="header">
-            🥊 STOCK BATTLE 🥊
+            <h1>🥊 Stock Battle</h1>
+            <p>Comparación Visual de Acciones para Decisiones de Inversión Inteligentes</p>
         </div>
-        
-        <div class="battle-arena">
-            <!-- Apple Stock -->
-            <div class="stock-card stock-red">
-                <div class="stock-header">
-                    <div>
-                        <div class="stock-symbol">🍎 AAPL</div>
-                        <div>Apple Inc.</div>
-                    </div>
-                    <div class="stock-price">
-                        <div class="price">$174.50</div>
-                        <div class="change-positive">+2.1%</div>
-                    </div>
-                </div>
-                
-                <div class="metric-section">
-                    <div class="metric-title">📊 PERFORMANCE</div>
-                    <div class="metric-row">
-                        <span>1D: +2.1%</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill progress-positive" style="width: 80%"></div>
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <span>1W: +5.2%</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill progress-positive" style="width: 90%"></div>
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <span>1M: -1.2%</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill progress-negative" style="width: 30%"></div>
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <span>1Y: +18.5%</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill progress-positive" style="width: 85%"></div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="metric-section">
-                    <div class="metric-title">📈 FUNDAMENTALS</div>
-                    <div class="metric-row">
-                        <span>P/E Ratio</span>
-                        <strong>28.5</strong>
-                    </div>
-                    <div class="metric-row">
-                        <span>Market Cap</span>
-                        <strong>2.8T</strong>
-                    </div>
-                    <div class="metric-row">
-                        <span>Dividend</span>
-                        <strong>0.96%</strong>
-                    </div>
-                    <div class="metric-row">
-                        <span>Volume</span>
-                        <strong>45.2M</strong>
-                    </div>
+        <div class="project-info">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-value">💡</div>
+                    <div class="info-label">Concepto Innovador</div>
                 </div>
-
-                <div class="metric-section">
-                    <div class="metric-title">📰 RECENT NEWS</div>
-                    <div class="news-item">• iPhone 16 sales surge</div>
-                    <div class="news-item">• Q4 earnings beat estimates</div>
-                    <div class="news-item">• Services revenue growth</div>
+                <div class="info-item">
+                    <div class="info-value">5</div>
+                    <div class="info-label">Diseños Diferentes</div>
                 </div>
-            </div>
-
-            <!-- VS Section -->
-            <div class="vs-section">
-                ⚔️
-                <div style="font-size: 0.5em; margin: 10px 0;">VS</div>
-                🏆
-            </div>
-
-            <!-- Tesla Stock -->
-            <div class="stock-card stock-blue">
-                <div class="stock-header">
-                    <div>
-                        <div class="stock-symbol">⚡ TSLA</div>
-                        <div>Tesla Inc.</div>
-                    </div>
-                    <div class="stock-price">
-                        <div class="price">$248.87</div>
-                        <div class="change-negative">-1.2%</div>
-                    </div>
+                <div class="info-item">
+                    <div class="info-value">📱</div>
+                    <div class="info-label">Mobile Ready</div>
                 </div>
-                
-                <div class="metric-section">
-                    <div class="metric-title">📊 PERFORMANCE</div>
-                    <div class="metric-row">
-                        <span>1D: -1.2%</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill progress-negative" style="width: 40%"></div>
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <span>1W: +8.7%</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill progress-positive" style="width: 100%"></div>
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <span>1M: +15.3%</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill progress-positive" style="width: 100%"></div>
-                        </div>
-                    </div>
-                    <div class="metric-row">
-                        <span>1Y: -12.1%</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill progress-negative" style="width: 20%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="metric-section">
-                    <div class="metric-title">📈 FUNDAMENTALS</div>
-                    <div class="metric-row">
-                        <span>P/E Ratio</span>
-                        <strong>76.3</strong>
-                    </div>
-                    <div class="metric-row">
-                        <span>Market Cap</span>
-                        <strong>794.2B</strong>
-                    </div>
-                    <div class="metric-row">
-                        <span>Dividend</span>
-                        <strong>0.00%</strong>
-                    </div>
-                    <div class="metric-row">
-                        <span>Volume</span>
-                        <strong>89.3M</strong>
-                    </div>
-                </div>
-
-                <div class="metric-section">
-                    <div class="metric-title">📰 RECENT NEWS</div>
-                    <div class="news-item">• Model Y price reduction</div>
-                    <div class="news-item">• FSD Beta expansion</div>
-                    <div class="news-item">• Gigafactory updates</div>
+                <div class="info-item">
+                    <div class="info-value">🚀</div>
+                    <div class="info-label">Para Bloom</div>
                 </div>
             </div>
         </div>
 
-        <div class="score-section">
-            <h2>🏆 BATTLE SCORE 🏆</h2>
-            <div class="score-bars">
-                <div class="score-bar">
-                    <div>AAPL</div>
-                    <div class="score-fill" style="background: linear-gradient(90deg, #ff4757, #ff6b7a); width: 90%;">9/10</div>
+        <div class="project-nav">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.8rem;">🗂️ Explora las Ideas de Diseño</h2>
+            
+            <div class="nav-grid">
+                <a href="original-mockup.html" class="nav-card">
+                    <div class="status-badge">Live</div>
+                    <div class="nav-icon">🎯</div>
+                    <div class="nav-title">Mockup Original</div>
+                    <div class="nav-desc">Diseño inicial completo con Apple vs Tesla. Layout tipo batalla con métricas detalladas y sistema de puntuación.</div>
+                </a>
+
+                <a href="mockups.html" class="nav-card">
+                    <div class="status-badge">Live</div>
+                    <div class="nav-icon">🎨</div>
+                    <div class="nav-title">5 Estilos Diferentes</div>
+                    <div class="nav-desc">Minimalista, Gaming, Professional, Mobile-First y Chart-Focus. Explora todas las variaciones del concepto.</div>
+                </a>
+
+                <div class="nav-card" onclick="comingSoon()">
+                    <div class="status-badge coming-soon">Soon</div>
+                    <div class="nav-icon">📊</div>
+                    <div class="nav-title">Datos en Tiempo Real</div>
+                    <div class="nav-desc">Integración con APIs de finanzas para precios y métricas actualizadas. Alpha Vantage + Yahoo Finance.</div>
                 </div>
-                <div class="score-bar">
-                    <div>TSLA</div>
-                    <div class="score-fill" style="background: linear-gradient(90deg, #3742fa, #5764ff); width: 60%;">6/10</div>
+
+                <div class="nav-card" onclick="comingSoon()">
+                    <div class="status-badge coming-soon">Soon</div>
+                    <div class="nav-icon">🎮</div>
+                    <div class="nav-title">Interactivo + Animated</div>
+                    <div class="nav-desc">Versión con animaciones, efectos de batalla y transiciones suaves. Experiencia gamificada completa.</div>
                 </div>
-            </div>
-            <div style="font-size: 1.2em; margin-top: 20px;">
-                🎯 <strong>Winner: AAPL (+3 points)</strong><br>
-                Better stability and fundamentals
+
+                <div class="nav-card" onclick="comingSoon()">
+                    <div class="status-badge coming-soon">Soon</div>
+                    <div class="nav-icon">⚙️</div>
+                    <div class="nav-title">Configurador de Batalla</div>
+                    <div class="nav-desc">Herramienta para personalizar criterios de comparación, pesos de métricas y tipos de análisis.</div>
+                </div>
+
+                <div class="nav-card" onclick="comingSoon()">
+                    <div class="status-badge coming-soon">Soon</div>
+                    <div class="nav-icon">🔗</div>
+                    <div class="nav-title">Integración Bloom</div>
+                    <div class="nav-desc">Implementación final dentro del ecosistema Bloom. Conectado con portafolios y ejecutor de órdenes.</div>
+                </div>
             </div>
         </div>
 
-        <div class="actions">
-            <button class="btn btn-buy-red" onclick="alert('Buying AAPL! 🍎')">🛒 Buy AAPL</button>
-            <button class="btn btn-buy-blue" onclick="alert('Buying TSLA! ⚡')">🛒 Buy TSLA</button>
-            <button class="btn btn-secondary" onclick="location.reload()">🔄 New Battle</button>
-            <button class="btn btn-secondary" onclick="alert('Customize weights!')">⚙️ Settings</button>
+        <div class="project-info">
+            <h3 style="text-align: center; margin-bottom: 1.5rem;">📋 Roadmap del Proyecto</h3>
+            <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <div style="margin: 1rem 0; display: flex; align-items: center;">
+                    <span style="color: #28a745; margin-right: 1rem; font-size: 1.2rem;">✅</span>
+                    <span>Conceptualización y mockups estáticos</span>
+                </div>
+                <div style="margin: 1rem 0; display: flex; align-items: center;">
+                    <span style="color: #ffc107; margin-right: 1rem; font-size: 1.2rem;">🔄</span>
+                    <span>Selección de diseño final</span>
+                </div>
+                <div style="margin: 1rem 0; display: flex; align-items: center;">
+                    <span style="color: #6c757d; margin-right: 1rem; font-size: 1.2rem;">⏳</span>
+                    <span>Integración con APIs de datos financieros</span>
+                </div>
+                <div style="margin: 1rem 0; display: flex; align-items: center;">
+                    <span style="color: #6c757d; margin-right: 1rem; font-size: 1.2rem;">⏳</span>
+                    <span>Desarrollo de la funcionalidad interactiva</span>
+                </div>
+                <div style="margin: 1rem 0; display: flex; align-items: center;">
+                    <span style="color: #6c757d; margin-right: 1rem; font-size: 1.2rem;">⏳</span>
+                    <span>Implementación en Bloom</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🚀 Proyecto Stock Battle para Bloom - Kevin Martello</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Generado con ⚡ Jarvis AI Assistant</p>
         </div>
     </div>
 
     <script>
-        // Simple animation on load
+        function comingSoon() {
+            alert('🚧 Esta funcionalidad estará disponible pronto!\n\nPor ahora puedes explorar los mockups disponibles.');
+        }
+
+        // Add some interactive effects
         document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.stock-card');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    card.style.transition = 'all 0.6s ease';
-                    
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 100);
-                }, index * 200);
+            // Add parallax effect to header
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const header = document.querySelector('.header');
+                header.style.transform = `translateY(${scrolled * 0.5}px)`;
             });
-        });
-        
-        // Add some interactivity
-        document.querySelectorAll('.stock-card').forEach(card => {
-            card.addEventListener('click', function() {
-                this.style.transform = 'scale(1.02)';
+
+            // Add entrance animations
+            const cards = document.querySelectorAll('.nav-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease';
+                
                 setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 150);
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 200 * index);
             });
         });
     </script>
